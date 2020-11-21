@@ -1,45 +1,110 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    compileSdkVersion App.compileSdk
+    buildToolsVersion App.buildToolVersion
+        defaultConfig {
+            applicationId "com.mudassir.moviesapp"
+            minSdkVersion App.minSdk
+            targetSdkVersion App.targetSdk
+            versionCode App.versionCode
+            versionName App.versionName
 
-    defaultConfig {
-        applicationId "com.mudassir.moviesapp"
-        minSdkVersion 16
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+
+        dataBinding {
+            enabled true
+        }
+        kapt {
+            generateStubs = true
+        }
+        compileOptions {
+            sourceCompatibility = 1.8
+            targetCompatibility = 1.8
+        }
+
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(':domain')
+    implementation project(':data')
+    implementation Libs.KOTLIN
+    implementation Libs.CORE_KTX
+    implementation Libs.APP_COMPAT
+    implementation Libs.SUPPORT_CONSTRAINT_LAYOUT
+    implementation Libs.TIMBER
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation Libs.RX_ANDROID
+    implementation Libs.RX_ADAPTER
+    implementation Libs.RX_KOTLIN
+    implementation Libs.MOSHI
+    implementation Libs.MOSHI_ADAPTER
+
+    implementation Libs.RETROFIT
+    implementation Libs.RETROFIT_MOSHI_CONVERTER
+    implementation Libs.LOGGING_INTERCEPTOR
+    implementation Libs.OK_HTTP
+
+    implementation Libs.DAGGER_SUPPORT
+    implementation Libs.DAGGER_LIB
+    kapt Libs.DAGGER_COMPILER
+    kapt Libs.DAGGER_ANDROID
+
+    implementation Libs.ANDROIDX_LEGACY_SUPPORT
+    implementation Libs.LIFECYCLE_EXT
+    implementation Libs.LIFECYCLE_VIEW_MODEL_KTX
+    implementation Libs.NAVIGATION_FRAGMENT_KTX
+    implementation Libs.NAVIGATION_UI_KTX
+
+    implementation Libs.SHIMMER_LIB
+    implementation Libs.MATERIAL
+    implementation Libs.LIFECYCLE_EXTENSIONS
+    implementation Libs.LIFECYCLE_VIEW_MODEL_KTX
+    implementation Libs.SDP
+    implementation Libs.COIL
+
+    //database lib
+    implementation Libs.ROOM_DB
+
+    implementation Libs.EXO_PLAYER
+
+    testImplementation TestLibs.JUNIT
+    testImplementation TestLibs.MOCKITO
+    testImplementation TestLibs.MOCKITO_HARRMAN
+    testImplementation TestLibs.CORE_TEST
+
+    androidTestImplementation TestLibs.TEST_RULES
+    androidTestImplementation TestLibs.TEST_RUNNER
+    androidTestImplementation TestLibs.ESPRESSO
+    androidTestImplementation TestLibs.ESPRESSO_SUPPORT
+    androidTestImplementation TestLibs.CORE_TEST
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//    implementation 'androidx.core:core-ktx:1.3.2'
+//    implementation 'androidx.appcompat:appcompat:1.2.0'
+//    implementation 'com.google.android.material:material:1.2.1'
+//    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+//    testImplementation 'junit:junit:4.+'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
