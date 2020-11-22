@@ -57,9 +57,9 @@ class MovieListFragment : Fragment() ,MovieListAdapter.Callbacks{
         })
 
         viewModel.movieList.observe(viewLifecycleOwner, Observer {
-            Timber.d { "list of movies ${it.size}" }
-            mAdapter.setData(it)
-            mAdapter.notifyDataSetChanged()
+
+            mAdapter.submitData(lifecycle, it)
+
         })
 
     }

@@ -4,7 +4,7 @@ import com.mudassir.domain.entity.MovieEntity
 import com.mudassir.domain.entity.MovieListEntity
 
 data class MovieListModel(
-    val movieList: List<Movie>
+    val movieList: List<Movie>? = emptyList()
 )
 
 data class Movie(
@@ -55,4 +55,4 @@ fun com.mudassir.domain.entity.MovieEntity.mapToPresentation(): Movie
 fun List<com.mudassir.domain.entity.MovieEntity>.mapToPresentation(): List<Movie>
         = map { it.mapToPresentation() }
 fun MovieListEntity.mapToPresentation() : MovieListModel
-        = MovieListModel(movieList = movieList.mapToPresentation())
+        = MovieListModel(movieList = movieList?.mapToPresentation())

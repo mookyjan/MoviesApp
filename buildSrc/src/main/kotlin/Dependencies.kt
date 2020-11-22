@@ -41,6 +41,7 @@ object Versions {
     const val EXO_PLAYER="2.11.7"
     const val ROOM_VERSION="1.1.1"
     const val GSON ="2.8.6"
+    const val PAGING ="3.0.0-alpha01"
     /* test */
     const val JUNIT = "4.12"
     const val MOCKITO ="3.1.0"
@@ -96,6 +97,8 @@ object Libs {
     const val ROOM_RXJAVA ="android.arch.persistence.room:rxjava2:${Versions.ROOM_VERSION}"
     const val ROOM_COMPILER ="android.arch.persistence.room:compiler:${Versions.ROOM_VERSION}"
     const val GSON ="com.google.code.gson:gson:${Versions.GSON}"
+    const val PAGING ="androidx.paging:paging-runtime:${Versions.PAGING}"
+    const val RXPAGING = "androidx.paging:paging-rxjava2:${Versions.PAGING}"
 }
 
 object TestLibs {

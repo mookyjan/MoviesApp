@@ -4,41 +4,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
 import com.mudassir.moviesapp.R
 import com.mudassir.moviesapp.databinding.SingleItemMovieBinding
 import com.mudassir.moviesapp.model.Movie
 
-class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class MovieListAdapter : PagingDataAdapter<Movie,MovieListAdapter.ViewHolder>(COMPARATOR) {
 
     var movieList = listOf<Movie>()
     private var callbacks: Callbacks? = null
 
-    fun setData(list: List<Movie>){
-        movieList =list
-    }
+
     fun setupListener(listener: Callbacks?){
         this.callbacks=listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Timber.d { "audio book list $movieList" }
+        Timber.d { "movie list $movieList" }
         val inflater = LayoutInflater.from(parent.context)
         val binding: SingleItemMovieBinding =
             DataBindingUtil.inflate(inflater, R.layout.single_item_movie, parent, false)
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return movieList.size;
-    }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movieEntity =movieList.get(position)
-        holder.binding.item = movieEntity
-        holder.binding.txtTitle.text = movieEntity.title
-//        holder.binding.txtSerialNo.text =(position+1).toString()
+
+        getItem(position)?.let {
+            holder.bind(it)
+            holder.binding.item = it
+        }
         holder.binding.executePendingBindings()
     }
 
@@ -47,6 +46,22 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(val binding: SingleItemMovieBinding) : RecyclerView.ViewHolder(binding.root){
-
+        fun bind(movie: Movie) {
+            binding.txtTitle.setOnClickListener { view->
+                callbacks?.onMovieItemClick(view,movie)
+            }
+        }
     }
+
+
+       object COMPARATOR : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
+            }
+        }
+
 }

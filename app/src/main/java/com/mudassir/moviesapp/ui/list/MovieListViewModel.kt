@@ -3,6 +3,8 @@ package com.mudassir.moviesapp.ui.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
+import androidx.paging.PagingData
 import com.github.ajalt.timberkt.Timber
 import com.mudassir.data.remote.model.MovieModel
 import com.mudassir.domain.entity.MovieEntity
@@ -16,24 +18,26 @@ import javax.inject.Inject
 
 class MovieListViewModel @Inject constructor(private val getMovieListUseCase: GetMovieListUseCase) : BaseViewModel() {
 
-    private val _movieList = MutableLiveData<List<Movie>>()
-    var movieList: LiveData<List<Movie>> = _movieList
-    init {
-//        getMovieList()
-    }
+    private val _movieList = MutableLiveData<PagingData<Movie>>()
+    var movieList: LiveData<PagingData<Movie>> = _movieList
 
     fun getMovieList(isRefresh:Boolean =true){
         _loading.postValue(true)
         getMovieListUseCase.execute(isRefresh)
-            .subscribeBy(onSuccess = {
+            .subscribeBy(onNext = {
                 _loading.postValue(false)
-                _movieList.postValue(it.movieList.mapToPresentation())
+                _movieList.postValue( it.map {
+                    it.mapToPresentation()
+                })
                 Timber.d { "movie list api response $it" }
             },onError = {e->
                 _loading.postValue(false)
                 _error.postValue(e.localizedMessage ?: e.message ?:"Unknown error")
                 Timber.e { "error on movie list api ${e.printStackTrace()}" }
+            },onComplete = {
+                _loading.postValue(false)
             }).addTo(compositeDisposable)
+
     }
 
     /**

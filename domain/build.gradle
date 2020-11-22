@@ -34,6 +34,7 @@ dependencies {
     implementation Libs.RX_ANDROID
     implementation Libs.RX_KOTLIN
     implementation Libs.MOSHI
+    implementation Libs.PAGING
 
     testImplementation TestLibs.JUNIT
     testImplementation TestLibs.MOCKITO

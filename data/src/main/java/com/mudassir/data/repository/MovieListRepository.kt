@@ -6,8 +6,9 @@ import io.reactivex.Single
 
 class MovieListRepository(private val getMovieListRemoteDataSource: GetMovieListRemoteDataSource) {
 
-    fun getAudioBookList(refresh: Boolean? = false) : Single<MovieResponse>{
-        val remoteData = getMovieListRemoteDataSource.getMovieList()
+    fun getMovieList(refresh: Boolean? = false,page : Int) : Single<MovieResponse>{
+        val remoteData = getMovieListRemoteDataSource.getMovieList(page)
+
         return remoteData
     }
 }

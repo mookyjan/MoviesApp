@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 class GetMovieListRemoteDataSource (private val movieService: MovieService ) {
 
-    fun getMovieList() : Single<MovieResponse>
-     = movieService.getMovieList()
+    fun getMovieList(page:Int) : Single<MovieResponse>
+     = movieService.getMovieList(page=page)
 
 }

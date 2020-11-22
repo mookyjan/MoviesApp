@@ -69,6 +69,9 @@ dependencies {
     implementation Libs.ROOM_RXJAVA
     kapt Libs.ROOM_COMPILER
 
+    implementation Libs.PAGING
+    implementation Libs.RXPAGING
+
     testImplementation TestLibs.JUNIT
     testImplementation TestLibs.MOCKITO
     testImplementation TestLibs.MOCKITO_HARRMAN
