@@ -27,7 +27,7 @@ class GetMovieListRemoteDataSourceTest{
     }
 
     @Test
-    fun `get movie detail from api and check the id value that it matches the reponse value`(){
+    fun `get movie detail from api and check the id value that it matches the response value`(){
         //Given
         val result = Single.just(TestData.getMovieDetailResponse())
         //when
