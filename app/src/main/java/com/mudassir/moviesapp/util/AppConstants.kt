@@ -2,6 +2,7 @@ package com.mudassir.moviesapp.util
 
 object AppConstants {
 
+    const val MOVIE_ARGU ="movie"
     private const val BASE_POSTER_PATH = "https://image.tmdb.org/t/p/w342"
     private const val BASE_BACKDROP_PATH = "https://image.tmdb.org/t/p/w780"
 

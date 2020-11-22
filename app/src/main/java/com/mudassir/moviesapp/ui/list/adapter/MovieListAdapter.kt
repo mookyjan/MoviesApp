@@ -14,16 +14,12 @@ import com.mudassir.moviesapp.model.Movie
 
 class MovieListAdapter : PagingDataAdapter<Movie,MovieListAdapter.ViewHolder>(COMPARATOR) {
 
-    var movieList = listOf<Movie>()
     private var callbacks: Callbacks? = null
-
-
     fun setupListener(listener: Callbacks?){
         this.callbacks=listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Timber.d { "movie list $movieList" }
         val inflater = LayoutInflater.from(parent.context)
         val binding: SingleItemMovieBinding =
             DataBindingUtil.inflate(inflater, R.layout.single_item_movie, parent, false)
@@ -47,13 +43,11 @@ class MovieListAdapter : PagingDataAdapter<Movie,MovieListAdapter.ViewHolder>(CO
 
     inner class ViewHolder(val binding: SingleItemMovieBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(movie: Movie) {
-            binding.txtTitle.setOnClickListener { view->
+            binding.root.setOnClickListener { view->
                 callbacks?.onMovieItemClick(view,movie)
             }
         }
     }
-
-
        object COMPARATOR : DiffUtil.ItemCallback<Movie>() {
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
                 return oldItem.id == newItem.id

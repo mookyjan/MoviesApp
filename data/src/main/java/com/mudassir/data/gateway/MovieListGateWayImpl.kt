@@ -20,7 +20,7 @@ class MovieListGateWayImpl (private val movieListRepository: MovieListRepository
                 pageSize = 10,
                 enablePlaceholders = true,
                 maxSize = 30,
-                prefetchDistance = 10,
+                prefetchDistance = 5,
                 initialLoadSize = 20)){
              MovieDataSource(movieListRepository)
         }.flowable

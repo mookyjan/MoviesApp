@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/app_navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
     app:startDestination="@id/movieListFragment">
 
     <fragment
         android:id="@+id/movieListFragment"
         android:name="com.mudassir.moviesapp.ui.list.MovieListFragment"
-        android:label="MovieListFragment" />
+        android:label="MovieListFragment"
+        tools:layout="@layout/movie_list_fragment"
+        >
+        <action
+            android:id="@+id/action_movieListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.mudassir.moviesapp.ui.detail.MovieDetailFragment"
+        android:label="MovieDetailFragment"
+        tools:layout="@layout/movie_detail_fragment"
+        />
 </navigation>

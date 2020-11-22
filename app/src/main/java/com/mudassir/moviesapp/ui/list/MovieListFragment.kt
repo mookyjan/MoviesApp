@@ -1,5 +1,6 @@
 package com.mudassir.moviesapp.ui.list
 
+import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,12 +10,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.github.ajalt.timberkt.Timber
 import com.mudassir.moviesapp.R
 import com.mudassir.moviesapp.databinding.MovieListFragmentBinding
 import com.mudassir.moviesapp.model.Movie
+import com.mudassir.moviesapp.ui.list.adapter.LoadingGridStateAdapter
 import com.mudassir.moviesapp.ui.list.adapter.MovieListAdapter
+import com.mudassir.moviesapp.util.AppConstants
 import dagger.android.support.AndroidSupportInjection
+import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
 class MovieListFragment : Fragment() ,MovieListAdapter.Callbacks{
@@ -43,7 +49,7 @@ class MovieListFragment : Fragment() ,MovieListAdapter.Callbacks{
         mBinding.viewModel= viewModel
         mBinding.lifecycleOwner=this
 
-        viewModel.getMovieList()
+//        viewModel.getMovieList()
 
         observeEvents()
         setupForAdapter()
@@ -56,22 +62,53 @@ class MovieListFragment : Fragment() ,MovieListAdapter.Callbacks{
             Toast.makeText(activity,"Error $it", Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.movieList.observe(viewLifecycleOwner, Observer {
 
+        viewModel.getMovieList().subscribe {
             mAdapter.submitData(lifecycle, it)
+        }.addTo(viewModel.compositeDisposable)
 
-        })
+//        viewModel.movieList.observe(viewLifecycleOwner, Observer {
+//
+//            mAdapter.submitData(lifecycle, it)
+//
+//        })
 
     }
 
     private fun setupForAdapter(){
         mAdapter.setupListener(this)
         mBinding.rvMovies.adapter=mAdapter
+        mBinding.rvMovies.adapter = mAdapter.withLoadStateFooter(
+            footer = LoadingGridStateAdapter()
+        )
+        mAdapter.addLoadStateListener { loadState ->
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+
+            errorState?.let {
+                AlertDialog.Builder(view?.context)
+                    .setTitle(R.string.txt_error)
+                    .setMessage(it.error.localizedMessage)
+                    .setNegativeButton(R.string.txt_cancel) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .setPositiveButton(R.string.txt_retry) { _, _ ->
+                        mAdapter.retry()
+                    }
+                    .show()
+            }
+        }
+
         mBinding.lySwipeRefresh.setProgressViewOffset(false,mBinding.root.height/2,500)
     }
 
 
     override fun onMovieItemClick(view: View, item: Movie) {
         Timber.d { "clicked on movie" }
+        val bundle = Bundle()
+        bundle.putParcelable(AppConstants.MOVIE_ARGU,item)
+        findNavController().navigate(R.id.action_movieListFragment_to_movieDetailFragment,bundle)
     }
 }

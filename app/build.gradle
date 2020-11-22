@@ -85,6 +85,9 @@ dependencies {
     implementation Libs.ROOM_DB
 
     implementation Libs.PAGING
+    implementation Libs.RXPAGING
+    implementation Libs.COROUTINE_CORE
+    implementation Libs.COROUTINES_ANDROID
 
     testImplementation TestLibs.JUNIT
     testImplementation TestLibs.MOCKITO

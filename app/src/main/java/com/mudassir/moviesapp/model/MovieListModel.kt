@@ -1,12 +1,15 @@
 package com.mudassir.moviesapp.model
 
+import android.os.Parcelable
 import com.mudassir.domain.entity.MovieEntity
 import com.mudassir.domain.entity.MovieListEntity
+import kotlinx.android.parcel.Parcelize
 
 data class MovieListModel(
     val movieList: List<Movie>? = emptyList()
 )
 
+@Parcelize
 data class Movie(
 
     var popularity: Double? = null,
@@ -47,7 +50,7 @@ data class Movie(
 
 
     var posterPath: String? = null
-)
+): Parcelable
 
 fun com.mudassir.domain.entity.MovieEntity.mapToPresentation(): Movie
         = Movie(popularity, id, video, voteCount, voteAverage, title, releaseDate, originalLanguage, originalTitle, genreIds, backdropPath, adult, overview, posterPath)
