@@ -1,7 +1,8 @@
-package com.mudassir.moviesapp
+package com.mudassir.moviesapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mudassir.moviesapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
