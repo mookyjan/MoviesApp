@@ -1,0 +1,106 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdkVersion App.compileSdk
+    buildToolsVersion App.buildToolVersion
+        defaultConfig {
+            applicationId "com.mudassir.moviesapp"
+            minSdkVersion App.minSdk
+            targetSdkVersion App.targetSdk
+            versionCode App.versionCode
+            versionName App.versionName
+
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+
+        dataBinding {
+            enabled true
+        }
+        kapt {
+            generateStubs = true
+        }
+        compileOptions {
+            sourceCompatibility = 1.8
+            targetCompatibility = 1.8
+        }
+
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(':domain')
+    implementation project(':data')
+    implementation Libs.KOTLIN
+    implementation Libs.CORE_KTX
+    implementation Libs.APP_COMPAT
+    implementation Libs.SUPPORT_CONSTRAINT_LAYOUT
+    implementation Libs.TIMBER
+
+    implementation Libs.RX_ANDROID
+    implementation Libs.RX_ADAPTER
+    implementation Libs.RX_KOTLIN
+    implementation Libs.MOSHI
+    implementation Libs.MOSHI_ADAPTER
+
+    implementation Libs.RETROFIT
+    implementation Libs.RETROFIT_MOSHI_CONVERTER
+    implementation Libs.LOGGING_INTERCEPTOR
+    implementation Libs.OK_HTTP
+
+    implementation Libs.DAGGER_SUPPORT
+    implementation Libs.DAGGER_LIB
+    kapt Libs.DAGGER_COMPILER
+    kapt Libs.DAGGER_ANDROID
+
+    implementation Libs.ANDROIDX_LEGACY_SUPPORT
+    implementation Libs.LIFECYCLE_EXT
+    implementation Libs.LIFECYCLE_VIEW_MODEL_KTX
+    implementation Libs.NAVIGATION_FRAGMENT_KTX
+    implementation Libs.NAVIGATION_UI_KTX
+
+    implementation Libs.SHIMMER_LIB
+    implementation Libs.MATERIAL
+    implementation Libs.LIFECYCLE_EXTENSIONS
+    implementation Libs.LIFECYCLE_VIEW_MODEL_KTX
+    implementation Libs.SDP
+    implementation Libs.COIL
+
+    //database lib
+    implementation Libs.ROOM_DB
+
+    implementation Libs.PAGING
+    implementation Libs.RXPAGING
+    implementation Libs.COROUTINE_CORE
+    implementation Libs.COROUTINES_ANDROID
+
+    implementation Libs.GLIDE
+    kapt Libs.GLIDE_COMPILER
+    implementation Libs.GLIDE_PLATTE
+
+    testImplementation TestLibs.JUNIT
+    testImplementation TestLibs.MOCKITO
+    testImplementation TestLibs.MOCKITO_HARRMAN
+    testImplementation TestLibs.CORE_TEST
+
+    androidTestImplementation TestLibs.TEST_RULES
+    androidTestImplementation TestLibs.TEST_RUNNER
+    androidTestImplementation TestLibs.ESPRESSO
+    androidTestImplementation TestLibs.ESPRESSO_SUPPORT
+    androidTestImplementation TestLibs.CORE_TEST
+}

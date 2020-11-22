@@ -1,0 +1,78 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion App.compileSdk
+    buildToolsVersion App.buildToolVersion
+
+    defaultConfig {
+        minSdkVersion App.minSdk
+        targetSdkVersion App.targetSdk
+        versionCode App.versionCode
+        versionName App.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+}
+
+def API_URL = System.getenv("API_URL") ?: apiUrl
+def API_KEY = System.getenv("API_KEY") ?: apiKey
+
+android.buildTypes.each { type ->
+    type.buildConfigField "String", "API_URL", "\"$API_URL\""
+    type.buildConfigField "String", "API_KEY", "\"$API_KEY\""
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(':domain')
+    implementation Libs.KOTLIN
+    implementation Libs.TIMBER
+    implementation Libs.GSON
+
+    implementation Libs.RX_ANDROID
+    implementation Libs.RX_ADAPTER
+    implementation Libs.RX_KOTLIN
+    implementation Libs.MOSHI
+    implementation Libs.MOSHI_ADAPTER
+
+    implementation Libs.RETROFIT
+    implementation Libs.RETROFIT_MOSHI_CONVERTER
+    implementation Libs.LOGGING_INTERCEPTOR
+    implementation Libs.OK_HTTP
+
+    implementation Libs.DAGGER_SUPPORT
+    implementation Libs.DAGGER_LIB
+    kapt Libs.DAGGER_COMPILER
+    kapt Libs.DAGGER_ANDROID
+
+    implementation Libs.ROOM_DB
+    implementation Libs.ROOM_RXJAVA
+    kapt Libs.ROOM_COMPILER
+
+    implementation Libs.PAGING
+    implementation Libs.RXPAGING
+
+    testImplementation TestLibs.JUNIT
+    testImplementation TestLibs.MOCKITO
+    testImplementation TestLibs.MOCKITO_HARRMAN
+}
