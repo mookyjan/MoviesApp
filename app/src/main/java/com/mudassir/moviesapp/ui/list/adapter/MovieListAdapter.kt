@@ -7,16 +7,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.github.ajalt.timberkt.Timber
 import com.mudassir.moviesapp.R
 import com.mudassir.moviesapp.databinding.SingleItemMovieBinding
 import com.mudassir.moviesapp.model.Movie
 
-class MovieListAdapter : PagingDataAdapter<Movie,MovieListAdapter.ViewHolder>(COMPARATOR) {
+class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(COMPARATOR) {
 
     private var callbacks: Callbacks? = null
-    fun setupListener(listener: Callbacks?){
-        this.callbacks=listener
+    fun setupListener(listener: Callbacks?) {
+        this.callbacks = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,35 +26,39 @@ class MovieListAdapter : PagingDataAdapter<Movie,MovieListAdapter.ViewHolder>(CO
     }
 
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         getItem(position)?.let {
             holder.bind(it)
-            holder.binding.item = it
         }
-        holder.binding.executePendingBindings()
     }
 
     interface Callbacks {
         fun onMovieItemClick(view: View, item: Movie)
     }
 
-    inner class ViewHolder(val binding: SingleItemMovieBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: SingleItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
-            binding.root.setOnClickListener { view->
-                callbacks?.onMovieItemClick(view,movie)
-            }
-        }
-    }
-       object COMPARATOR : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem.id == newItem.id
+            binding.apply {
+                palette = txtTitle
+                binding.item = movie
+                lyMovieItem.setOnClickListener {
+                    callbacks?.onMovieItemClick(it, movie)
+                }
+                executePendingBindings()
             }
 
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem == newItem
-            }
         }
+    }
+
+    object COMPARATOR : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
+    }
 
 }

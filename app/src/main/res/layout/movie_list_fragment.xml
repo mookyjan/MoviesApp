@@ -28,21 +28,23 @@
                 android:id="@+id/rv_movies"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
                 android:clipToPadding="false"
-                tools:listitem="@layout/single_item_movie"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/gl_start"
-               app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:spanCount="2"
+                tools:listitem="@layout/single_item_movie" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/gl_start"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/_8sdp"
+                app:layout_constraintGuide_begin="@dimen/_1sdp"
                 />
 
             <androidx.constraintlayout.widget.Guideline
@@ -50,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/gl_end"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/_8sdp"
+                app:layout_constraintGuide_end="@dimen/_1sdp"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,8 @@ object Versions {
     const val ROOM_VERSION="1.1.1"
     const val GSON ="2.8.6"
     const val PAGING ="3.0.0-alpha09"
+    const val GLIDE ="4.10.0"
+    const val GLIDE_PALETTE ="2.1.2"
     /* test */
     const val JUNIT = "4.12"
     const val MOCKITO ="3.1.0"
@@ -100,6 +102,9 @@ object Libs {
     const val GSON ="com.google.code.gson:gson:${Versions.GSON}"
     const val PAGING ="androidx.paging:paging-runtime:${Versions.PAGING}"
     const val RXPAGING = "androidx.paging:paging-rxjava2:${Versions.PAGING}"
+    const val GLIDE ="com.github.bumptech.glide:glide:${Versions.GLIDE}"
+    const val GLIDE_COMPILER ="com.github.bumptech.glide:compiler:${Versions.GLIDE}"
+    const val GLIDE_PLATTE="com.github.florent37:glidepalette:${Versions.GLIDE_PALETTE}"
 }
 
 object TestLibs {

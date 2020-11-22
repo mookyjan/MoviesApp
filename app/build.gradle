@@ -89,6 +89,10 @@ dependencies {
     implementation Libs.COROUTINE_CORE
     implementation Libs.COROUTINES_ANDROID
 
+    implementation Libs.GLIDE
+    kapt Libs.GLIDE_COMPILER
+    implementation Libs.GLIDE_PLATTE
+
     testImplementation TestLibs.JUNIT
     testImplementation TestLibs.MOCKITO
     testImplementation TestLibs.MOCKITO_HARRMAN
