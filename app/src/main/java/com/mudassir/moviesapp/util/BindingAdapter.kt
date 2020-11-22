@@ -40,10 +40,7 @@ fun bindingImage(imageView: ImageView, path: String?, palette: View?) {
 fun loadImage(imageView: ImageView, url: String?) {
     url?.let {
         imageView.load(AppConstants.getPosterPath(it)) {
-            crossfade(true)
             placeholder(R.mipmap.ic_launcher)
-                .transformations(RoundedCornersTransformation())
-
         }
     }
 }
