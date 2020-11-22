@@ -5,6 +5,7 @@ import android.text.Html
 import android.text.Spanned
 import android.view.View
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.mudassir.moviesapp.R
+
 
 @BindingAdapter("android:src", "palette")
 fun bindingImage(imageView: ImageView, path: String?, palette: View?) {
@@ -37,7 +39,7 @@ fun bindingImage(imageView: ImageView, path: String?, palette: View?) {
 @BindingAdapter("loadImage")
 fun loadImage(imageView: ImageView, url: String?) {
     url?.let {
-        imageView.load(it) {
+        imageView.load(AppConstants.getPosterPath(it)) {
             crossfade(true)
             placeholder(R.mipmap.ic_launcher)
                 .transformations(RoundedCornersTransformation())
@@ -45,6 +47,20 @@ fun loadImage(imageView: ImageView, url: String?) {
         }
     }
 }
+
+/**
+ * binding for the rating bar, and divide it by 2 t
+ */
+
+
+@BindingAdapter("android:rating")
+fun setRating(view: RatingBar?, rating: Double) {
+    if (view != null) {
+        val rate = rating.toFloat()
+        view.rating = rate/2
+    }
+}
+
 
 @BindingAdapter("android:htmlText")
 fun setHtmlTextValue(textView: TextView, htmlText: String?) {

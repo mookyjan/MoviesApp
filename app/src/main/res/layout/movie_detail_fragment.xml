@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
@@ -8,15 +9,114 @@
     </data>
 
 
+ <androidx.core.widget.NestedScrollView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@color/black"
+     android:fillViewport="true"
+     >
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.detail.MovieDetailFragment">
 
-    <TextView
+    <ImageView
+        android:id="@+id/iv_cover"
+        loadImage="@{viewModel.movieDetail.posterPath}"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="@dimen/_150sdp"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/txt_movie_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        style="@style/textTitleStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_title"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:gravity="center"
+        tools:text="@string/txt_title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        android:text="@{viewModel.movieDetail.title}"
+        app:layout_constraintEnd_toStartOf="@+id/gl_end"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintTop_toBottomOf="@+id/iv_cover" />
+
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="@{@string/txt_release_date(viewModel.movieDetail.releaseDate)}"
+        android:textSize="@dimen/_12sdp"
+        style="@style/subTextTitleStyle"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/gl_end"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        tools:text="@string/txt_release_date" />
+
+    <RatingBar
+        android:id="@+id/rb_review"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:rating="@{viewModel.movieDetail.voteAverage}"
+        app:layout_constraintEnd_toStartOf="@+id/gl_end"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
+        tools:rating="3.5f" />
+
+    <TextView
+        android:id="@+id/tv_summary"
+        style="@style/textTitleStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_summary"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintTop_toBottomOf="@+id/rb_review" />
+
+    <TextView
+        android:id="@+id/tv_overview"
+        style="@style/subTextTitleStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.movieDetail.overview}"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_summary"
+        tools:text="@string/txt_movie_description" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gl_start"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/_8sdp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gl_end"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/_8sdp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+ </androidx.core.widget.NestedScrollView>
 </layout>

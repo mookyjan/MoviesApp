@@ -1,9 +1,11 @@
 package com.mudassir.moviesapp.di.module
 
+import com.mudassir.data.gateway.MovieDetailGateWayImpl
 import com.mudassir.data.gateway.MovieListGateWayImpl
 import com.mudassir.data.remote.GetMovieListRemoteDataSource
 import com.mudassir.data.remote.api.MovieService
 import com.mudassir.data.repository.MovieListRepository
+import com.mudassir.domain.gateway.MovieDetailGateWay
 import com.mudassir.domain.gateway.MovieListGateWay
 import dagger.Module
 import dagger.Provides
@@ -24,5 +26,9 @@ class DataModule {
     @Provides
     fun provideMovieGateWay(movieListRepository: MovieListRepository): MovieListGateWay
             = MovieListGateWayImpl(movieListRepository)
+
+    @Provides
+    fun provideMovieDetailGateWay(movieListRepository: MovieListRepository): MovieDetailGateWay
+        = MovieDetailGateWayImpl(movieListRepository)
 
 }

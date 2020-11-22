@@ -10,8 +10,8 @@ abstract class BaseMapper<T, K> {
 
     abstract fun transformTo(source: T): K
 
-    fun transformFromList(source: List<K>): List<T> {
-        return source.map { src -> transformFrom(src) }
+    fun transformFromList(source: List<K>?): List<T> {
+        return source?.map { src -> transformFrom(src) } ?: emptyList()
     }
     fun transformToList(source: List<T>): List<K> {
         return source.map { src -> transformTo(src) }
