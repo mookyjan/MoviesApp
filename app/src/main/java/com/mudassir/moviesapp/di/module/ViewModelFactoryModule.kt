@@ -2,6 +2,7 @@ package com.mudassir.moviesapp.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mudassir.moviesapp.ui.detail.MovieDetailViewModel
 import com.mudassir.moviesapp.ui.list.MovieListViewModel
 import dagger.Binds
 import dagger.Module
@@ -17,4 +18,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(MovieListViewModel::class)
     abstract fun provideMovieListViewModel(viewModel: MovieListViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailViewModel::class)
+    abstract fun provideMovieDetailViewModel(viewModel: MovieDetailViewModel) : ViewModel
 }
