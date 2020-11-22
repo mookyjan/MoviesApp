@@ -1,7 +1,7 @@
 package com.mudassir.data.paging
 
 import androidx.paging.rxjava2.RxPagingSource
-import com.mudassir.data.local.mapper.MovieListToDomainMapper
+import com.mudassir.data.mapper.MovieListToDomainMapper
 import com.mudassir.data.repository.MovieListRepository
 import com.mudassir.domain.entity.MovieEntity
 import com.mudassir.domain.entity.MovieListEntity
@@ -11,12 +11,12 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.io.InvalidObjectException
 
-class MovieDataSource (val movieService: MovieListRepository): RxPagingSource<Int, MovieEntity>()  {
+class MovieDataSource (val movieListRepository: MovieListRepository): RxPagingSource<Int, MovieEntity>()  {
 
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, MovieEntity>> {
         val page = params.key ?: 1
         return try {
-            val response = movieService.getMovieList(false,page)
+            val response = movieListRepository.getMovieList(false,page)
                 .subscribeOn(Schedulers.io())
             response.map {
                 val mapResponse =  MovieListToDomainMapper.transformFrom(it)
@@ -45,13 +45,6 @@ class MovieDataSource (val movieService: MovieListRepository): RxPagingSource<In
             nextKey = if (position == data.totalPages) null else position + 1
         )
     }
-
-//    @ExperimentalPagingApi
-//    override fun getRefreshKey(state: PagingState<Int, MovieResponse>): Int? {
-//        return state.anchorPosition?.let { anchorPosition ->
-//            state.closestItemToPosition(anchorPosition)?.page
-//        }
-//    }
 
 
 }
