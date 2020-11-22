@@ -1,6 +1,6 @@
 package com.mudassir.moviesapp.ui.detail
 
-import com.squareup.moshi.Json
+
 
 class MovieDetailModel (
     var adult: Boolean? = null,

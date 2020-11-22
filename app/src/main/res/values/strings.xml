@@ -4,6 +4,8 @@
     <string name="txt_movie_description">Description of movie</string>
     <string name="txt_summary">Summary</string>
     <string name="txt_release_date">Release Date: %1$s</string>
+    <string name="txt_duration">Duration : %1$s</string>
+    <string name="txt_book">Book Movie</string>
     <string name="txt_error">Error</string>
     <string name="txt_retry">Retry</string>
     <string name="txt_cancel">Cancel</string>

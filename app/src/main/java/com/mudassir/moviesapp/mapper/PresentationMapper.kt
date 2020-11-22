@@ -8,7 +8,7 @@ import com.mudassir.moviesapp.ui.detail.*
 object MovieDetailDomainToPresentation : BaseMapper<MovieDetailEntity, MovieDetailModel>(){
 
     override fun transformFrom(source: MovieDetailModel): MovieDetailEntity {
-        return MovieDetailEntity(adult = false,backdropPath = source.backdropPath,
+        return MovieDetailEntity(adult = source.adult,backdropPath = source.backdropPath,
             belongsToCollection = BelongsToCollectionDomainToPresentation.transformFrom(source.belongsToCollection!!),
             budget = source.budget,genres =  source.genres?.let {
                 GenretoDomainToPresentation.transformFromList(it)
@@ -33,7 +33,7 @@ object MovieDetailDomainToPresentation : BaseMapper<MovieDetailEntity, MovieDeta
 
 
     override fun transformTo(source: MovieDetailEntity): MovieDetailModel {
-        return MovieDetailModel(adult = false,backdropPath = source.backdropPath,
+        return MovieDetailModel(adult = source.adult,backdropPath = source.backdropPath,
             belongsToCollection =source.belongsToCollection?.let {
                 BelongsToCollectionDomainToPresentation.transformTo(it)
             } ,

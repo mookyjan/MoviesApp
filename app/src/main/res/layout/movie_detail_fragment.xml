@@ -8,116 +8,61 @@
             type="com.mudassir.moviesapp.ui.detail.MovieDetailViewModel" />
     </data>
 
-
- <androidx.core.widget.NestedScrollView
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:background="@color/black"
-     android:fillViewport="true"
-     >
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.detail.MovieDetailFragment">
-
-    <ImageView
-        android:id="@+id/iv_cover"
-        loadImage="@{viewModel.movieDetail.posterPath}"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_250sdp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:contentDescription="@string/txt_movie_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/gl_start"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/ic_launcher" />
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:fitsSystemWindows="false">
 
-    <TextView
-        style="@style/textTitleStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_title"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:gravity="center"
-        tools:text="@string/txt_title"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_16sdp"
-        android:text="@{viewModel.movieDetail.title}"
-        app:layout_constraintEnd_toStartOf="@+id/gl_end"
-        app:layout_constraintStart_toStartOf="@+id/gl_start"
-        app:layout_constraintTop_toBottomOf="@+id/iv_cover" />
-
-
-    <TextView
-        android:id="@+id/tv_release_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:text="@{@string/txt_release_date(viewModel.movieDetail.releaseDate)}"
-        android:textSize="@dimen/_12sdp"
-        style="@style/subTextTitleStyle"
-        android:gravity="center"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/gl_end"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        tools:text="@string/txt_release_date" />
-
-    <RatingBar
-        android:id="@+id/rb_review"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:rating="@{viewModel.movieDetail.voteAverage}"
-        app:layout_constraintEnd_toStartOf="@+id/gl_end"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
-        tools:rating="3.5f" />
-
-    <TextView
-        android:id="@+id/tv_summary"
-        style="@style/textTitleStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_summary"
-        android:textColor="@color/white"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintStart_toStartOf="@+id/gl_start"
-        app:layout_constraintTop_toBottomOf="@+id/rb_review" />
-
-    <TextView
-        android:id="@+id/tv_overview"
-        style="@style/subTextTitleStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@{viewModel.movieDetail.overview}"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/gl_end"
-        app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@+id/tv_summary"
-        tools:text="@string/txt_movie_description" />
-
-    <androidx.constraintlayout.widget.Guideline
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/gl_start"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/_8sdp"
-        />
+        android:layout_height="280dp"
+        android:elevation="4dp"
+        tools:targetApi="LOLLIPOP">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/gl_end"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/_8sdp"
-        />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleGravity="top|left"
+            app:expandedTitleTextAppearance="@style/CollapsedExpandedTitleText"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
- </androidx.core.widget.NestedScrollView>
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    loadImage="@{viewModel.movieDetail.backdropPath ?? viewModel.movieDetail.posterPath}"
+                    app:layout_collapseMode="parallax" />
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
+                app:layout_collapseMode="pin"
+                app:titleTextColor="@color/white"
+                app:title="@{viewModel.movieDetail.title}"
+                 />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <include layout="@layout/movie_detail_layout"
+            android:layout_marginTop="@dimen/_200sdp"
+            app:viewModel="@{viewModel}"
+            />
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

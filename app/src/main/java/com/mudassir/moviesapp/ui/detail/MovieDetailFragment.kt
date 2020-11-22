@@ -39,6 +39,7 @@ class MovieDetailFragment : Fragment() {
 
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.movie_detail_fragment, container, false)
+        mBinding.toolbar.setTitleTextColor(resources.getColor(R.color.white))
         return mBinding.root
     }
 
