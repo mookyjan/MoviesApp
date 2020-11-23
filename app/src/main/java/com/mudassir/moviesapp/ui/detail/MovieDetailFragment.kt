@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.mudassir.moviesapp.R
 import com.mudassir.moviesapp.databinding.MovieDetailFragmentBinding
 import com.mudassir.moviesapp.model.Movie
@@ -39,6 +40,7 @@ class MovieDetailFragment : Fragment() {
 
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.movie_detail_fragment, container, false)
+        mBinding.toolbar.setTitleTextColor(resources.getColor(R.color.white))
         return mBinding.root
     }
 
@@ -51,12 +53,21 @@ class MovieDetailFragment : Fragment() {
         mBinding.lifecycleOwner = this
         viewModel.movieId.value = movie.id
         observeEvents()
+        //TODO change it later
+        mBinding.lyMovieDetail.btnBookMovie.setOnClickListener {
+            clickOnBookMovie()
+        }
     }
 
     private fun observeEvents() {
         viewModel.movieId.observe(viewLifecycleOwner, Observer {
             viewModel.getMovieDetail(it)
         })
+    }
+
+
+    fun clickOnBookMovie(){
+        findNavController().navigate(R.id.action_movieDetailFragment_to_webViewFragment)
     }
 
 }
