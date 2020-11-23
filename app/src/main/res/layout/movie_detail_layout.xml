@@ -101,7 +101,6 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:layout_marginTop="@dimen/_8sdp"
-
         app:layout_constraintEnd_toStartOf="@+id/gl_end"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/iv_cover"

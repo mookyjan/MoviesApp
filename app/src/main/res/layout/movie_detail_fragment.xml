@@ -59,8 +59,8 @@
 
 
         <include layout="@layout/movie_detail_layout"
-            android:layout_marginTop="@dimen/_200sdp"
             app:viewModel="@{viewModel}"
+            android:id="@+id/ly_movie_detail"
             />
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
